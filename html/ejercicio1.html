@@ -1,0 +1,43 @@
+<!-- Genera un número aleatorio entre 1 y 100 y pide al usuario que adivine el número leyéndolo desde una página Web. Proporciona pistas de "más alto" o "más bajo" hasta que el usuario adivine el número.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>Ejercicio 1</title>
+</head>
+<body>
+    
+    <h1>ADIVINA EL NUMERO</h1>
+    <p>adivina un número entre 1 y 100.</p>
+    
+    <input type="text" id="numeroUsuario" placeholder="introduce el numero">
+    <button onclick="adivinarNumero()">Adivinar</button>
+    
+    <p id="resultado"></p>
+    
+    <script>
+        // numero aleatorio del 1 al 100
+        const numeroAleatorio = Math.floor(Math.random() * 100) + 1;
+        let intentos = 0; // tambien agregue una funcion para saber cuantos intentos ocupa en adivinar el numero
+        
+        function adivinarNumero() {
+            const suposicion = parseInt(document.getElementById("numeroUsuario").value);
+            intentos++;
+            
+            if (isNaN(suposicion) || suposicion < 1 || suposicion > 100) { //uso isNaN para que solo sea numero. tambien que el numero este entre 1 y 100
+                document.getElementById("resultado").innerText = "Por favor, introduce un numero valido entre 1 y 100.";
+            } else if (suposicion < numeroAleatorio) {
+                document.getElementById("resultado").innerText = "Mas alto. Intentos: " + intentos;
+            } else if (suposicion > numeroAleatorio) {
+                document.getElementById("resultado").innerText = "Mas bajo. Intentos: " + intentos;
+            } else {
+                document.getElementById("resultado").innerText = "¡Felicidades! Adivinaste el numero " + numeroAleatorio + " en " + intentos + " intentos.";
+            }
+        }
+    </script>
+
+</body>
+</html>
