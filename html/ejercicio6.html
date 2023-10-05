@@ -1,0 +1,109 @@
+<!-- Desarrolla un sistema de gestión de libros que permita agregar libros con información como título, autor y año de publicación. Además, permite buscar y mostrar información de libros por título o autor. -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>Ejercicio 6</title>
+</head>
+<body>
+    
+    <h1>Sistema de gestión de libros</h1>
+
+    <h2>Agregar libro</h2>
+
+    <form id="agregarLibroForm">
+        <label for="nombre">Nombre del autor:</label>
+        <input type="text" id="nombre" required><br>
+
+        <label for="año">Año:</label>
+        <input type="number" id="año" required><br>
+
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" required><br>
+
+        <button type="button" onclick="agregarLibro()">Agregar libro</button>
+    </form>
+
+    <br><br>
+
+    <h2>Buscar libro por título</h2>
+
+    <form id="buscarLibroTituloForm">
+        <label for="tituloBusqueda">Título a buscar:</label>
+        <input type="text" id="tituloBusqueda" required><br>
+
+        <button type="button" onclick="buscarLibroTitulo()">Buscar libro</button>
+    </form>
+
+    <br><br>
+
+    <h2>Buscar libro por autor</h2>
+
+    <form id="buscarLibroAutorForm">
+        <label for="autorBusqueda">Autor a buscar:</label>
+        <input type="text" id="autorBusqueda" required><br>
+
+        <button type="button" onclick="buscarLibroAutor()">Buscar libro</button>
+    </form>
+
+    <br><br>
+
+    <h2>Resultado:</h2>
+    <div id="resultado"></div>
+
+    <script>
+
+        const libros = {};
+
+        function agregarLibro() {
+            const nombre = document.getElementById("nombre").value;
+            const año = document.getElementById("año").value;
+            const titulo = document.getElementById("titulo").value;
+
+            libros[titulo] = {
+                nombre: nombre,
+                año: año,
+                titulo: titulo,
+            };
+
+            document.getElementById("agregarLibroForm").reset();
+        }
+
+        function buscarLibroTitulo() {
+            const tituloBusqueda = document.getElementById("tituloBusqueda").value;
+
+            if (libros[tituloBusqueda] !== undefined) {
+                const libro = libros[tituloBusqueda];
+                document.getElementById("resultado").innerText = `Nombre del autor: ${libro.nombre},  Año de publicación: ${libro.año},  Título: ${libro.titulo}`;
+            } else {
+                document.getElementById("resultado").innerText = "Libro no encontrado";
+            }
+        }
+
+        function buscarLibroAutor() {
+            const autorBusqueda = document.getElementById("autorBusqueda").value;
+            let resultados = [];
+
+            for (const titulo in libros) {
+                if (libros.hasOwnProperty(titulo)) {
+                    const libro = libros[titulo];
+                    if (libro.nombre == autorBusqueda) {
+                        resultados.push(`Nombre del autor: ${libro.nombre}, Año de publicación: ${libro.año}, Título: ${libro.titulo}`);
+                    }
+                }
+            }
+
+            if (resultados.length > 0) {
+                document.getElementById("resultado").innerText = resultados.join('\n');
+            } else {
+                document.getElementById("resultado").innerText = "Libro no encontrado";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
