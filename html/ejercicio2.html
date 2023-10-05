@@ -1,0 +1,82 @@
+<!-- Crea un sistema de registro de estudiantes que permita agregar estudiantes con información como nombre, edad y número de identificación. Luego, permite buscar y mostrar la información de un estudiante dado su número de identificación. -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>Ejercicio 2</title>
+</head>
+
+<body>
+
+    <h1>Sistema de Registro de Estudiantes</h1>
+
+    <h2>Agregar Estudiante</h2>
+
+    <form id="agregarEstudianteForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required><br>
+
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" required><br>
+
+        <label for="identificacion">Identificacion:</label>
+        <input type="text" id="identificacion" required><br>
+
+        <button type="button" onclick="agregarEstudiante()">Agregar Estudiante</button>
+    </form>
+
+    <br><br>
+
+    <h2>Buscar Estudiante</h2>
+
+    <form id="buscarEstudianteForm">
+        <label for="identificacionBusqueda">Numero de Identificacion a buscar:</label>
+        <input type="text" id="identificacionBusqueda" required><br>
+
+        <button type="button" onclick="buscarEstudiante()">Buscar Estudiante</button>
+    </form>
+
+    <br><br>
+
+    <h2>Resultado:</h2>
+    <div id="resultado"></div>
+
+    <script>
+
+        const estudiantes = {};
+
+        function agregarEstudiante() {
+            const nombre = document.getElementById("nombre").value;
+            const edad = document.getElementById("edad").value;
+            const identificacion = document.getElementById("identificacion").value;
+
+            estudiantes[identificacion] = {
+                nombre: nombre,
+                edad: edad,
+                identificacion: identificacion,
+            };
+
+
+            document.getElementById("agregarEstudianteForm").reset();
+        }
+
+        function buscarEstudiante() {
+            const identificacionBusqueda = document.getElementById("identificacionBusqueda").value;
+
+            if (estudiantes[identificacionBusqueda] !== undefined) {
+                const estudiante = estudiantes[identificacionBusqueda];
+                document.getElementById("resultado").innerText = `Nombre: ${estudiante.nombre},  Edad: ${estudiante.edad},  Numero de Identificación: ${estudiante.identificacion}`;
+            } else {
+                document.getElementById("resultado").innerText = "Estudiante no encontrado";
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
