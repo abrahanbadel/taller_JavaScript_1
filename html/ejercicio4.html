@@ -1,0 +1,79 @@
+<!-- Crea un programa que permita al usuario seleccionar un número y mostrar su tabla de multiplicar del 1 al 10. Además, debe permitir al usuario elegir cuántas filas mostrar. -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>Ejercicio 4</title>
+</head>
+
+<body>
+
+    <h1>TABLAS DE MULTIPLICAR INTERACTIVAS</h1>
+
+    <label for="numero">Selecciona un número:</label>
+    <select id="numero">
+
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+
+    </select>
+
+    <br>
+
+    <label for="filas">Número de filas a mostrar:</label>
+    <input type="number" id="filas">
+    <br>
+    <button onclick="generarTabla()">Generar Tabla</button>
+
+    <h2>Tabla de Multiplicar:</h2>
+
+    <table id="tabla" border="2" style="border-collapse: collapse; text-align: center;"></table>
+
+    <script>
+        function generarTabla() {
+            const numero = parseInt(document.getElementById('numero').value);
+            const filas = parseInt(document.getElementById('filas').value);
+            const tabla = document.getElementById('tabla');
+
+            // Limpiamos la tabla 
+            tabla.innerHTML = '';
+
+            // Creamos las filas de la tabla
+            for (let i = 1; i <= filas; i++) {
+                const fila = document.createElement('tr');
+                const multiplicador = i;
+                const resultado = numero * multiplicador;
+
+                // Creamos las celdas de la fila
+                const celdaMultiplicador = document.createElement('td');
+                const celdaResultado = document.createElement('td');
+
+                // Agregamos el texto a las celdas
+                celdaMultiplicador.textContent = `${numero} x ${multiplicador}`;
+                celdaResultado.textContent = resultado;
+
+                // Agregamos las celdas a la fila
+                fila.appendChild(celdaMultiplicador);
+                fila.appendChild(celdaResultado);
+
+                // Agregamos la fila a la tabla
+                tabla.appendChild(fila);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
