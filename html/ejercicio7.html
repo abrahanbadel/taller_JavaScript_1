@@ -1,0 +1,49 @@
+<!--  Crea una calculadora de interés compuesto que permita al usuario ingresar el capital inicial, la tasa de interés anual y el período de inversión en años. Luego, muestra el monto final. -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>Ejercicio 7</title>
+
+    <script>
+        function calcularInteresCompuesto() {
+            var capitalInicial = parseFloat(document.getElementById("capitalInicial").value);
+            var tasaInteresAnual = parseFloat(document.getElementById("tasaInteresAnual").value);
+            var periodoInversionAños = parseInt(document.getElementById("periodoInversionAños").value);
+
+            // calculos del monto final
+            var tasaInteresMensual = (tasaInteresAnual / 12)/100; // Tasa de interés mensual
+            var numeroPagos = periodoInversionAños * 12; // Número de pagos mensuales
+            var montoFinal = capitalInicial * (1 + tasaInteresMensual)** numeroPagos;
+
+            document.getElementById("resultado").innerHTML = "El monto final es de $" + montoFinal.toFixed(2);
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <h1>Calculadora de Interés Compuesto</h1>
+    <form>
+        <label for="capitalInicial">Capital Inicial:</label>
+        <input type="number" id="capitalInicial" required><br>
+
+        <label for="tasaInteresAnual">Tasa de Interés Anual (%):</label>
+        <input type="number" id="tasaInteresAnual" required><br>
+
+        <label for="periodoInversionAños">Período de Inversión (años):</label>
+        <input type="number" id="periodoInversionAños" required><br>
+
+        <input type="button" value="Calcular" onclick="calcularInteresCompuesto()">
+    </form>
+
+    <p id="resultado"></p>
+
+</body>
+
+</html>
