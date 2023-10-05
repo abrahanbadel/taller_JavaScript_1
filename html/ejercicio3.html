@@ -1,0 +1,67 @@
+<!-- Crea una calculadora de estadísticas que permita ingresar una lista de números y calcule la media, la mediana y la desviación estándar de los números ingresados. -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>Ejercicio 3</title>
+</head>
+<body>
+    
+    <h1>CALCULADORA DE ESTADISTICAS</h1>
+    <p>Ingresa una lista de números separados por comas (por ejemplo, 12, 15, 20, 25, 30):</p>
+    <textarea id="numerosInput" rows="4" cols="50"></textarea> <br>
+    <button onclick="calcularEstadisticas()">calcular</button>
+
+    <div id="resultados">
+        <p>Media: <span id="media"></span></p>
+        <p>Mediana: <span id="mediana"></span></p>
+        <p>Desviación Estándar: <span id="desviacion"></span></p>
+    </div>
+
+    <script>
+        function calcularEstadisticas() {
+            const numerosInput = document.getElementById("numerosInput").value;
+            const numeros = numerosInput.split(",").map(Number);
+            
+            
+            const media = calcularMedia(numeros);              //toFixed es para la cantidad de decimales
+            document.getElementById("media").textContent = media.toFixed(2);
+            
+            const mediana = calcularMediana(numeros);
+            document.getElementById("mediana").textContent = mediana.toFixed(2);
+            
+            const desviacion = calcularDesviacion(numeros);
+            document.getElementById("desviacion").textContent = desviacion.toFixed(2);
+        }
+
+        function calcularMedia(numeros) {
+            const suma = numeros.reduce((a, b) => a + b, 0);
+            return suma / numeros.length;
+        }
+
+        function calcularMediana(numeros) {
+            const sorted = numeros.slice().sort((a, b) => a - b);
+            const mid = Math.floor(sorted.length / 2);
+            if (sorted.length % 2 == 0) {
+                return (sorted[mid - 1] + sorted[mid]) / 2;
+            } else {
+                return sorted[mid];
+            }
+        }
+
+        function calcularDesviacion(numeros) {
+            const media = calcularMedia(numeros);
+            const sumaCuadrados = numeros.reduce((total, numero) => {
+                const diferencia = numero - media;
+                return total + diferencia * diferencia;
+            }, 0);
+            const desviacion = Math.sqrt(sumaCuadrados / numeros.length);
+            return desviacion;
+        }
+    </script>
+
+</body>
+</html>
