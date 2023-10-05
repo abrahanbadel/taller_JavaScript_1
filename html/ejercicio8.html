@@ -1,0 +1,73 @@
+<!--  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>Ejercicio 8</title>
+</head>
+
+<body>
+
+    <h1>Generador de Contraseñas Seguras</h1>
+
+    <form id="generadorContraseña">
+        <label for="length">Longitud de la contraseña:</label>
+        <input type="number" id="length" min="1" required><br>
+
+        <label for="mayus">Incluir mayúsculas:</label>
+        <input type="checkbox" id="mayus"><br>
+
+        <label for="numeros">Incluir números:</label>
+        <input type="checkbox" id="numeros"><br>
+
+        <label for="caracteresEspeciales">Incluir caracteres especiales:</label>
+        <input type="checkbox" id="caracteresEspeciales"><br>
+
+        <button type="button" onclick="generatePassword()">Generar Contraseña</button>
+    </form>
+
+    <h2>Contraseña generada:</h2>
+    
+    <div id="passwordResult"></div>
+
+    <script>
+        function generatePassword() {
+            const length = parseInt(document.getElementById('length').value);
+            const incluirmayus = document.getElementById('mayus').checked;
+            const incluirnumeros = document.getElementById('numeros').checked;
+            const incluirCaracteresEspeciales = document.getElementById('caracteresEspeciales').checked;
+
+            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+            const mayusChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numberChars = '0123456789';
+            const caracteresEspeciales = '!@#$%^&*()_+[]{}|;:,.<>?';
+
+            let validChars = lowercaseChars;
+
+            if (incluirmayus) {
+                validChars += mayusChars;
+            }
+            if (incluirnumeros) {
+                validChars += numberChars;
+            }
+            if (incluirCaracteresEspeciales) {
+                validChars += caracteresEspeciales;
+            }
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * validChars.length);
+                password += validChars.charAt(randomIndex);
+            }
+
+            document.getElementById('passwordResult').textContent = password;
+        }
+    </script>
+
+</body>
+
+</html>
