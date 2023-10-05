@@ -1,0 +1,82 @@
+<!-- Crea un juego de preguntas y respuestas donde el programa hace preguntas al usuario y lleva un seguimiento de las respuestas correctas e incorrectas. Al final, muestra la puntuación. -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>Ejercicio 5</title>
+</head>
+<body>
+    
+    <h1>Juego de Preguntas y Respuestas</h1>
+
+    <div id="pregunta-container">
+        <p id="pregunta"></p>
+        <input type="text" id="respuesta">
+        <button onclick="comprobarRespuesta()">Responder</button>
+    </div>
+    <div id="puntuacion"></div>
+
+    <script>
+        const preguntas = [
+            {
+                pregunta: "¿Cuál es la capital de Francia?",
+                respuesta: "Paris"
+            },
+            {
+                pregunta: "¿Quién escribió 'Cien años de soledad'?",
+                respuesta: "Gabriel Garcia Marquez"
+            },
+            {
+                pregunta: "¿cuanto es 5 x 5'?",
+                respuesta: "25"
+            },
+            {
+                pregunta: "¿como se llama la etiqueta para agregar una tabla en HTML'?",
+                respuesta: "table"
+            }
+        ];
+
+        let preguntaActual = 0;
+        let respuestasCorrectas = 0;
+
+        function mostrarPregunta() {
+            const preguntaElement = document.getElementById("pregunta");
+            preguntaElement.textContent = preguntas[preguntaActual].pregunta;
+        }
+
+        function quitarTildes(texto) { //funcion para permitir que las respuestas acepten tildes (saque la funcion de stackOverflow)
+            return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function comprobarRespuesta() {
+            const respuestaUsuario = quitarTildes(document.getElementById("respuesta").value.toLowerCase());
+            const respuestaCorrecta = quitarTildes(preguntas[preguntaActual].respuesta.toLowerCase());
+
+            if (respuestaUsuario === respuestaCorrecta) {
+                respuestasCorrectas++;
+            }
+
+            preguntaActual++;
+
+            if (preguntaActual < preguntas.length) {
+                mostrarPregunta();
+                document.getElementById("respuesta").value = "";
+            } else {
+                mostrarPuntuacion();
+            }
+        }
+
+        function mostrarPuntuacion() {
+            const puntuacionElement = document.getElementById("puntuacion");
+            puntuacionElement.textContent = "Puntuacion: " + respuestasCorrectas + " de " + preguntas.length + " respuestas correctas";
+        }
+
+        mostrarPregunta();
+        
+    </script>
+
+</body>
+</html>
