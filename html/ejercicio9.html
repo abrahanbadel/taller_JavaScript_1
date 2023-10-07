@@ -1,0 +1,68 @@
+<!-- Escribe una función llamada calcularEstadisticas que tome una lista de calificaciones como argumento y devuelva un objeto con las siguientes estadísticas: el promedio de las calificaciones, la calificación más alta y la calificación más baja. -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="AbrahanBadel">
+    <title>calificaciones</title>
+
+</head>
+<body>
+    
+    <h1>CALCULADORA DE CALIFICACIONES</h1>
+
+    <form id="calificacionForm">
+        <label for="calificaciones">Ingrese las calificaciones (separadas por comas):</label>
+        <input type="text" id="calificaciones" name="calificaciones" required>
+        <button type="submit">Calcular</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+
+        document.getElementById("calificacionForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const inputCalificaciones = document.getElementById("calificaciones").value;
+            const calificacionesArray = inputCalificaciones.split(",").map(calificacion => parseInt(calificacion.trim(), 10));
+
+            const estadisticas = calcularEstadisticas(calificacionesArray);
+
+            const resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.innerHTML = `
+                <h2>Resultados:</h2>
+                <p>Promedio: ${estadisticas.promedio}</p>
+                <p>Calificación más alta: ${estadisticas.maxima}</p>
+                <p>Calificación más baja: ${estadisticas.minima}</p>
+            `;
+        });
+
+        function calcularEstadisticas(calificaciones) {
+            if (calificaciones.length == 0) {
+                return {
+                    promedio: 0,
+                    maxima: null,
+                    minima: null
+                };
+            }
+
+            const suma = calificaciones.reduce((total, calificacion) => total + calificacion, 0);
+            const promedio = suma / calificaciones.length;
+
+            const maxima = Math.max(...calificaciones);
+            const minima = Math.min(...calificaciones);
+
+            return {
+                promedio: promedio.toFixed(1), 
+                maxima: maxima,
+                minima: minima
+            };
+        }
+
+    </script>
+
+</body>
+</html>
