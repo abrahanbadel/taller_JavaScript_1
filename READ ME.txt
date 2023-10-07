@@ -1,0 +1,7 @@
+hecho por AbrahanBadel
+
+link del reposiorio github
+https://github.com/abrahanbadel/taller_JavaScript_1
+
+link de github pages:
+https://abrahanbadel.github.io/taller_JavaScript_1/
